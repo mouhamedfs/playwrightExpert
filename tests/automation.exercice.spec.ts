@@ -1,10 +1,10 @@
 import { faker } from '@faker-js/faker';
 import {test, expect} from "@playwright/test";
-const fs = require('fs');
+import fs from 'fs';
 
-var email = faker.internet.email();
-var name = faker.person.firstName();
-var password = faker.internet.password();
+const email = faker.internet.email();
+const name = faker.person.firstName();
+const password = faker.internet.password();
 
 
 test.describe('Test Exercises', ()=>{

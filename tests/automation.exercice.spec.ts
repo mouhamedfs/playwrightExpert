@@ -1,10 +1,10 @@
 import { faker } from '@faker-js/faker';
 import {test, expect} from "@playwright/test";
-const fs = require('fs');
+import fs from 'fs';
 
-var email = faker.internet.email();
-var name = faker.person.firstName();
-var password = faker.internet.password();
+const email = faker.internet.email();
+const name = faker.person.firstName();
+const password = faker.internet.password();
 
 
 test.describe('Test Exercises', ()=>{
@@ -23,8 +23,12 @@ test.describe('Test Exercises', ()=>{
         //Navigate to url
         expect(page.url()).toBe('https://automationexercise.com/');
 
-        await page.getByRole('button', { name: 'Consent' }).click();
 
+        const consentButton = page.getByRole('button', {name: 'Consent'});
+        if (await consentButton.isVisible()) {
+            // Click the "Consent" button if it is visible
+            await consentButton.click();
+        }
         //Verify that home page is visible successfully
         await expect(page.getByAltText('Website for automation practice', { exact: true })).toBeVisible();
 
@@ -90,7 +94,11 @@ test.describe('Test Exercises', ()=>{
         //Navigate to url 'http://automationexercise.com'
         expect(page.url()).toBe('https://automationexercise.com/');
 
-        await page.getByRole('button', { name: 'Consent' }).click();
+        const consentButton = page.getByRole('button', {name: 'Consent'});
+        if (await consentButton.isVisible()) {
+            // Click the "Consent" button if it is visible
+            await consentButton.click();
+        }
 
         //Verify that home page is visible successfully
         await expect(page.getByAltText('Website for automation practice', { exact: true })).toBeVisible();
@@ -123,7 +131,11 @@ test.describe('Test Exercises', ()=>{
         //Navigate to url 'http://automationexercise.com'
         expect(page.url()).toBe('https://automationexercise.com/');
 
-        await page.getByRole('button', { name: 'Consent' }).click();
+        const consentButton = page.getByRole('button', {name: 'Consent'});
+        if (await consentButton.isVisible()) {
+            // Click the "Consent" button if it is visible
+            await consentButton.click();
+        }
 
         //Verify that home page is visible successfully
         await expect(page.getByAltText('Website for automation practice', { exact: true })).toBeVisible();
@@ -150,7 +162,11 @@ test.describe('Test Exercises', ()=>{
         //Navigate to url 'http://automationexercise.com'
         expect(page.url()).toBe('https://automationexercise.com/');
 
-        await page.getByRole('button', { name: 'Consent' }).click();
+        const consentButton = page.getByRole('button', {name: 'Consent'});
+        if (await consentButton.isVisible()) {
+            // Click the "Consent" button if it is visible
+            await consentButton.click();
+        }
 
         //Verify that home page is visible successfully
         await expect(page.getByAltText('Website for automation practice', { exact: true })).toBeVisible();

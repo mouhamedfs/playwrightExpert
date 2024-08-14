@@ -10,7 +10,7 @@ const password = faker.internet.password();
 test.describe('Test Exercises', ()=>{
 
     test.beforeEach(async ({ page }) => {
-        await page.goto('http://automationexercise.com');
+        await page.goto('/');
     });
 
     test('Register User', async ({ page }) => {
@@ -191,5 +191,4 @@ test.describe('Test Exercises', ()=>{
         await page.locator('//i[@class="fa fa-lock"]').click();
 
     });
-
 });

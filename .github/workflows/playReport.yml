@@ -30,7 +30,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.SECR_TOKEN }}
-          publish_dir: ./allure-results
+          publish_dir: ./allure-report
 
       - name: Upload Allure Report
         uses: actions/upload-artifact@v2

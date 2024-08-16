@@ -9,11 +9,13 @@ const password = faker.internet.password();
 
 test.describe('Test Exercises', ()=>{
 
+    //npx allure serve allure-results
+
     test.beforeEach(async ({ page }) => {
-        await page.goto('http://automationexercise.com');
+        await page.goto('/');
     });
 
-    test('Register User', async ({ page }) => {
+    test('Register User',{tag : '@register'},async ({ page }) => {
 
 
 
@@ -157,7 +159,7 @@ test.describe('Test Exercises', ()=>{
         await expect(page.getByText('Your email or password is incorrect!', { exact: true })).toBeVisible();
     });
 
-    test('Logout User',async ({ page }) => {
+    test('Logout User',{ tag: '@loggout'},async ({ page }) => {
         const data = JSON.parse(fs.readFileSync('tests/data.json', 'utf8'));
         //Navigate to url 'http://automationexercise.com'
         expect(page.url()).toBe('https://automationexercise.com/');
@@ -191,5 +193,4 @@ test.describe('Test Exercises', ()=>{
         await page.locator('//i[@class="fa fa-lock"]').click();
 
     });
-
 });

@@ -14,5 +14,3 @@ const globalTeardown = async () => {
     });
 }
 export default globalTeardown;
-
- //Todo: implement allure report configuration to check if the directory exists and delete it before executing

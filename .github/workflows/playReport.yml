@@ -29,7 +29,6 @@ jobs:
       - name: Upload Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          publish_branch: master
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
 

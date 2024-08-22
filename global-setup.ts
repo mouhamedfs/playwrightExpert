@@ -1,4 +1,3 @@
-import { chromium } from 'playwright';
 import { existsSync, rmSync } from 'fs';
 import { join } from 'path';
 import { test as base } from '@playwright/test';
@@ -18,9 +17,9 @@ type MyFixtures = {
 export const test = base.extend<MyFixtures>({
     basePage: async ({ page }, use) => {
         const basePage = new BasePage(page);
-        await basePage.goto();  // Navigate to the default URL
+        await basePage.goto();
         await use(basePage);
-        //await basePage.exitPage();  // Close the page after test
+        await basePage.exitPage();
     },
     homePage: async ({ basePage }, use) => {
         const homePage = new HomePage(basePage.page);

@@ -3,7 +3,7 @@ import {Page, Locator,expect } from '@playwright/test';
 
 export class RegisterPage extends BasePage {
     private readonly sexe: Locator;
-    private readonly name: Locator;
+    private readonly singleName: Locator;
     private readonly email: Locator;
     private readonly password: Locator;
     private readonly days: Locator;
@@ -27,7 +27,7 @@ export class RegisterPage extends BasePage {
     constructor(public readonly page: Page) {
         super(page);
         this.sexe = this.page.getByLabel('Mr.');
-        this.name = this.page.getByTestId('name');
+        this.singleName = this.page.getByTestId('name');
         this.email = this.page.getByTestId('email');
         this.password = this.page.getByTestId('password');
         this.days = this.page.getByTestId('days');
@@ -49,8 +49,8 @@ export class RegisterPage extends BasePage {
         this.continueButton = this.page.getByTestId('continue-button');
     }
 
-    async getNameValue(name: string){
-        await expect(this.name).toHaveValue(name);
+    async getNameValue(usernname: string){
+        await expect(this.singleName).toHaveValue(usernname);
     }
     async getEmailValue(email: string){
         await expect(this.email).toHaveValue(email);

@@ -3,7 +3,7 @@ import { test, expect} from '../global-setup'
 import fs from 'fs';
 
 const email = faker.internet.email();
-const name = faker.person.firstName();
+const firstName = faker.person.firstName();
 const password = faker.internet.password();
 
 
@@ -25,7 +25,7 @@ test('Register User',{tag : '@register'},async ({ homePage,loginPage,registerPag
 
     //Enter name and email address
     //Click 'Signup' button
-    await loginPage.signUp(name,email);
+    await loginPage.signUp(firstName,email);
 
 
     //Verify that 'ENTER ACCOUNT INFORMATION' is visible
@@ -33,7 +33,7 @@ test('Register User',{tag : '@register'},async ({ homePage,loginPage,registerPag
 
     //Fill details: Title, Name, Email, Password, Date of birth
     await registerPage.registerFirstInfo(password);
-    await registerPage.getNameValue(name);
+    await registerPage.getNameValue(firstName);
     await registerPage.getEmailValue(email);
 
     await registerPage.registerDateOfBirth("25","12","1995");

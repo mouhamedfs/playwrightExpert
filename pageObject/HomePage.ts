@@ -21,11 +21,15 @@ export class HomePage {
         }
     }
 
-    async verifyHomePage() {
-       return this.homeText;
+    async verifyHomePage(altText: string) {
+        const element = this.page.getByAltText(altText, {exact: true});
+        return await element.isVisible();
     }
 
     async clickSignupLogin() {
         await this.loginNavBar.click();
+    }
+    async exitPage(page: { close: () => any; }) {
+        await page.close();
     }
 }

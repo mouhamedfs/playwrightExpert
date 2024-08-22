@@ -1,13 +1,24 @@
 import { chromium } from 'playwright';
 import { existsSync, rmSync } from 'fs';
 import { join } from 'path';
+import { test as base } from '@playwright/test';
+import { HomePage} from './pageObject/HomePage';
 
+// Declare the types of your fixtures.
+type MyFixtures = {
+    homePage: HomePage;
+};
+
+export const test = base.extend<MyFixtures>({
+    homePage: async ({ page }, use) => {
+        const homePage = new HomePage(page);
+        await homePage.goto();
+        await use(homePage);
+        await homePage.exitPage(page);
+    }
+});
 
 const globalSetup = async () => {
-    const browser = await chromium.launch();
-    await browser.newContext({
-        permissions: ['geolocation', 'notifications', 'camera', 'microphone'],
-    });
     const allureReportPath = join(__dirname, 'allure-results');
     // Check if allure-report directory exists and delete it
     if (existsSync(allureReportPath)) {
@@ -19,3 +30,4 @@ const globalSetup = async () => {
 };
 
 export default globalSetup;
+export { expect } from '@playwright/test';

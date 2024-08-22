@@ -1,18 +1,18 @@
 import type { Page, Locator } from '@playwright/test';
-
-export class HomePage {
+import { BasePage } from './BasePage';
+export class HomePage extends BasePage {
     private readonly consentButton: Locator;
-    private readonly homeText: Locator;
     private readonly loginNavBar: Locator;
+    private readonly loggoutButton: Locator;
+    private readonly userIcon: Locator;
 
     constructor(public readonly page: Page) {
+        super(page);
         this.consentButton = this.page.getByRole('button', {name: 'Consent'});
-        this.homeText = this.page.getByAltText('Website for automation practice');
         this.loginNavBar = this.page.getByText(' Signup / Login');
-    }
+        this.loggoutButton =this.page.locator('//i[@class="fa fa-lock"]');
+        this.userIcon = this.page.locator('//i[@class="fa fa-user"]');
 
-    async goto() {
-        await this.page.goto('/');
     }
 
     async handleConsentButton() {
@@ -20,16 +20,14 @@ export class HomePage {
             await this.consentButton.click();
         }
     }
-
-    async verifyHomePage(altText: string) {
-        const element = this.page.getByAltText(altText, {exact: true});
-        return await element.isVisible();
-    }
-
     async clickSignupLogin() {
         await this.loginNavBar.click();
     }
-    async exitPage(page: { close: () => any; }) {
-        await page.close();
+
+    async logout(){
+        await this.loggoutButton.click();
+    }
+    async isUserIconVisible(): Promise<boolean> {
+        return this.userIcon.isVisible();
     }
 }

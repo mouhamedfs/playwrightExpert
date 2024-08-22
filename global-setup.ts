@@ -1,13 +1,41 @@
-import { chromium } from 'playwright';
 import { existsSync, rmSync } from 'fs';
 import { join } from 'path';
+import { test as base } from '@playwright/test';
+import { BasePage } from './pageObject/BasePage';
+import { HomePage } from './pageObject/HomePage';
+import { LoginPage } from './pageObject/LoginPage';
+import { RegisterPage } from './pageObject/RegisterPage';
 
+
+type MyFixtures = {
+    basePage: BasePage;
+    homePage: HomePage;
+    loginPage: LoginPage;
+    registerPage: RegisterPage;
+};
+
+export const test = base.extend<MyFixtures>({
+    basePage: async ({ page }, use) => {
+        const basePage = new BasePage(page);
+        await basePage.goto();
+        await use(basePage);
+        await basePage.exitPage();
+    },
+    homePage: async ({ basePage }, use) => {
+        const homePage = new HomePage(basePage.page);
+        await use(homePage);
+    },
+    loginPage: async ({ basePage }, use) => {
+        const loginPage = new LoginPage(basePage.page);
+        await use(loginPage);
+    },
+    registerPage: async ({ basePage }, use) => {
+        const registerPage = new RegisterPage(basePage.page);
+        await use(registerPage);
+    },
+});
 
 const globalSetup = async () => {
-    const browser = await chromium.launch();
-    await browser.newContext({
-        permissions: ['geolocation', 'notifications', 'camera', 'microphone'],
-    });
     const allureReportPath = join(__dirname, 'allure-results');
     // Check if allure-report directory exists and delete it
     if (existsSync(allureReportPath)) {
@@ -19,3 +47,4 @@ const globalSetup = async () => {
 };
 
 export default globalSetup;
+export { expect } from '@playwright/test';

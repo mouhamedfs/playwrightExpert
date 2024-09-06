@@ -4,7 +4,6 @@ import { test as base } from '@playwright/test';
 import { BasePage } from './pageObject/BasePage';
 import { HomePage } from './pageObject/HomePage';
 import { LoginPage } from './pageObject/LoginPage';
-const dotenv = require('dotenv');
 import { RegisterPage } from './pageObject/RegisterPage';
 
 
@@ -44,16 +43,6 @@ const globalSetup = async () => {
         rmSync(allureReportPath, { recursive: true, force: true });
     } else {
         console.log('allure-report directory does not exist.');
-    }
-    try {
-        if (process.env.ENV) {
-            dotenv.config({
-                path: `.env.${process.env.ENV}`,
-                override: true
-            });
-        }
-    } catch (error) {
-        console.error("Error in loading environment variables", error)
     }
 };
 

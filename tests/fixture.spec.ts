@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { test, expect} from '../global-setup'
-import fs from 'fs';
+import fs = require('node:fs');
 
 const email = faker.internet.email();
 const firstName = faker.person.firstName();
@@ -8,7 +8,7 @@ const password = faker.internet.password();
 
 
 
-test('Register User',{tag : '@register'},async ({ homePage,loginPage,registerPage, page }) => {
+test('Register User @AT-14',{tag : '@AT-14'},async ({ homePage,loginPage,registerPage, page }) => {
 
 
     expect(page.url()).toBe('https://automationexercise.com/');
@@ -55,7 +55,7 @@ test('Register User',{tag : '@register'},async ({ homePage,loginPage,registerPag
     fs.writeFileSync('tests/data.json', JSON.stringify({username: email, password: password}),'utf8');
 });
 
-test('Login User with correct email and password',async ({ homePage, loginPage,page }) => {
+test('Login User with correct email and password @AT-15',{tag : '@AT-15'},async ({ homePage, loginPage,page }) => {
 
     const data = JSON.parse(fs.readFileSync('tests/data.json', 'utf8'));
 
@@ -77,7 +77,7 @@ test('Login User with correct email and password',async ({ homePage, loginPage,p
     await loginPage.login(data.username, data.password);
 });
 
-test('Login User with incorrect email and password',async ({ homePage, loginPage,page }) => {
+test('Login User with incorrect email and password @AT-16',{tag : '@AT-16'},async ({ homePage, loginPage,page }) => {
 
     //Navigate to url 'http://automationexercise.com'
     expect(page.url()).toBe('https://automationexercise.com/');
@@ -99,7 +99,7 @@ test('Login User with incorrect email and password',async ({ homePage, loginPage
     await loginPage.isAltTextVisible('Your email or password is incorrect!');
 });
 
-test('Logout User',{ tag: '@loggout'},async ({ homePage,loginPage,page }) => {
+test('Logout User @AT-17',{ tag: '@AT-17'},async ({ homePage,loginPage,page }) => {
 
     const data = JSON.parse(fs.readFileSync('tests/data.json', 'utf8'));
 

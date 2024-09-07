@@ -46,5 +46,6 @@ const globalSetup = async () => {
     }
 };
 
+
 export default globalSetup;
 export { expect } from '@playwright/test';

@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import {test, expect} from "@playwright/test";
-import fs from 'fs';
+import fs = require('node:fs');
 
 const email = faker.internet.email();
 const name = faker.person.firstName();

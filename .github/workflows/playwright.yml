@@ -21,7 +21,7 @@ jobs:
         run: npx playwright install --with-deps
       - name: Run Playwright Tests
         run: npx playwright test
-      - env:
+        env:
           XRAY_URL: ${{ secrets.XRAY_URL }}
           XRAY_CLIENT_ID: ${{ secrets.XRAY_CLIENT_ID }}
           XRAY_CLIENT_SECRET: ${{ secrets.XRAY_CLIENT_SECRET }}

@@ -5,6 +5,8 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+    "outDir": "./dist"              // Output directory for compiled JavaScript files
+  },
+  "include": ["jira.ts"]      // Specify the TypeScript files to compile
 }

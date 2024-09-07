@@ -2,4 +2,4 @@ This repository is used to learn and develop new skills with Playwright  includi
 
   - Implement Github actions workflows
   - Implement and create reusable tests
-  - Learn new skills based on Typescript
+  - Learn new skills based on Typescripts

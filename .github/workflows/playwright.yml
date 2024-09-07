@@ -40,3 +40,40 @@ jobs:
         with:
           name: allure-report
           path: allure-report
+
+  notification:
+  # Ensure this job runs after the 'test' job is completed
+    needs: test
+    runs-on: ubuntu-latest
+    if: always() # Always run notification regardless of the result of the test job
+    steps:
+      - name: Send Slack Notification
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          STATUS=${{ needs.test.result }}  # Test the result status (success or failure)
+          if [[ "$STATUS" == "success" ]]; then
+            COLOR="#36a64f"
+            MESSAGE="Playwright tests have passed successfully!"
+          else
+            COLOR="#ff0000"
+            MESSAGE="Playwright tests failed. Please review the results."
+          fi
+          # Send the notification to Slack
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{
+            "attachments": [
+              {
+                "color": "'"$COLOR"'",
+                "pretext": "Test Notification from GitHub Actions",
+                "text": "'"$MESSAGE"'",
+                "fields": [
+                  {
+                    "title": "Allure Report",
+                    "value": "View the [Allure report](https://mouhamedfs.github.io/playwrightExpert/)",
+                    "short": false
+                  }
+                ]
+              }
+            ]
+          }' $SLACK_WEBHOOK_URL

@@ -70,7 +70,7 @@ jobs:
                 "fields": [
                   {
                     "title": "Allure Report",
-                    "value": "View the https://mouhamedfs.github.io/playwrightExpert|Allure report)",
+                    "value": "View the [Allure report](https://mouhamedfs.github.io/playwrightExpert/)",
                     "short": false
                   }
                 ]

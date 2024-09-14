@@ -55,9 +55,7 @@ export default defineConfig({
         },
       },
     ],
-          /*
     ['list'], ['./jira-reporter.ts'],
-           */
   ],
   // path to the global setup files.
   globalSetup: require.resolve('./global-setup'),

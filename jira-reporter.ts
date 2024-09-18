@@ -12,7 +12,6 @@ private testExecutionKey: string = ''; // Xray Test Execution key
 private tests: any[] = []; // Array to hold test results dynamically
 
     constructor() {
-        // Initialize secrets asynchronously
         this.initializeSecrets();
     }
 
@@ -26,7 +25,7 @@ private async initializeSecrets() {
             console.log(this.xrayBaseUrl);
             console.log(this.xrayClientId);
             console.log(this.xrayClientSecret);
-            throw error;  // Fail early if secrets cannot be initialized
+            throw error;
         }
     }
 
@@ -34,34 +33,28 @@ private async initializeSecrets() {
         console.log('Starting the tests...');
 
         try {
-            // Step 1: Authenticate with Xray to get an access token
             await this.authenticateXray();
         } catch (error) {
             console.error('Error during test setup:', error.message);
-            throw error;  // Fail early if setup doesn't work
+            throw error;
         }
     }
 
     async onTestEnd(test: TestCase, result: TestResult): Promise<void> {
         const testTags = this.extractJiraTags(test.title);
-
-        // Debug: Log the extracted test tags
         console.log('Extracted test tags:', testTags);
 
         testTags.forEach((testTag) => {
-            // Debug: Log to check if the testTag exists in this.testTagsToKeys
             console.log(`Processing testTag: ${testTag}`);
 
             if (testTag) {
                 const status = result.status === 'passed' ? 'PASSED' : 'FAILED';
-
-                // Dynamically add each test result to the tests array
                 this.tests.push({
-                    testKey: testTag,  // Jira test case key from extracted tag
-                    start: new Date().toISOString(),  // Start time of the test
-                    finish: new Date().toISOString(),  // Finish time of the test
-                    status: status,  // Test execution status (PASSED, FAILED, etc.)
-                    comment: `Test ${status === 'PASSED' ? 'passed' : 'failed'}.`,  // Additional comments
+                    testKey: testTag,
+                    start: new Date().toISOString(),
+                    finish: new Date().toISOString(),
+                    status: status,
+                    comment: `Test ${status === 'PASSED' ? 'passed' : 'failed'}.`,
                 });
 
                 // Debug: Log the current tests array

@@ -7,8 +7,8 @@ class JiraReporter implements Reporter {
     private xrayClientSecret: string = process.env.XRAY_CLIENT_SECRET;
     private authToken: string = '';
 
-    private testExecutionKey: string = ''; // Xray Test Execution key
-    private tests: any[] = []; // Array to hold test results dynamically
+    private testExecutionKey: string = '';
+    private tests: any[] = [];
 
 
     async onBegin(config: FullConfig, suite: Suite): Promise<void> {
@@ -22,6 +22,9 @@ class JiraReporter implements Reporter {
             throw error;  // Fail early if setup doesn't work
         }
     }
+
+    // Todo : Create repository on GitHub to contribute all on the same Playwright project
+    // Todo : prepare demo for GitHub configuration
 
     async onTestEnd(test: TestCase, result: TestResult): Promise<void> {
         const testTags = this.extractJiraTags(test.title);

@@ -10,7 +10,7 @@ const getSecret = async (path) => {
             throw new Error('VAULT_ADDR or VAULT_TOKEN not found in environment variables');
         }
 
-        const result = await vault.read(path);
+        const result = await vault.read("secret/playwright/");
         return result.data.data.value;  // Retrieve the secret value
     } catch (err) {
         console.error(`Error fetching secret: ${err.message}`);

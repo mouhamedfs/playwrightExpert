@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { Reporter, TestCase, TestResult, FullConfig, Suite, FullResult } from '@playwright/test/reporter';
+const getSecret = require('./vault');
 
 class JiraReporter implements Reporter {
-    private xrayBaseUrl: string = process.env.XRAY_URL;
-    private xrayClientId: string = process.env.XRAY_CLIENT_ID;
-    private xrayClientSecret: string = process.env.XRAY_CLIENT_SECRET;
+    private xrayBaseUrl: string = getSecret('secret/playwright/XRAY_URL');
+    private xrayClientId: string = getSecret('secret/playwright/XRAY_CLIENT_ID');
+    private xrayClientSecret: string = getSecret('secret/playwright/XRAY_CLIENT_SECRET');
     private authToken: string = '';
 
     private testExecutionKey: string = ''; // Xray Test Execution key

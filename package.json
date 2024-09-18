@@ -19,6 +19,7 @@
     "axios": "^1.7.5",
     "dotenv": "^16.4.5",
     "fs": "^0.0.1-security",
+    "node-vault": "^0.10.2",
     "playwright": "^1.46.0",
     "playwright-html": "^1.2.5",
     "typescript": "^5.5.4"

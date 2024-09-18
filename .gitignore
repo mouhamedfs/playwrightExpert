@@ -5,3 +5,7 @@ node_modules/
 /playwright/.cache/
 /allure-results/
 tests/data.json
+.env*
+.flaskenv*
+!.env.project
+!.env.vault

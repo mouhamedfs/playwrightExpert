@@ -35,12 +35,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
 
-      - name: Upload Allure Report
-        uses: actions/upload-artifact@v2
-        with:
-          name: allure-report
-          path: allure-report
-
   notification:
   # Ensure this job runs after the 'test' job is completed
     needs: test

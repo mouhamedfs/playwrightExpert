@@ -1,16 +1,34 @@
 import axios from 'axios';
 import { Reporter, TestCase, TestResult, FullConfig, Suite, FullResult } from '@playwright/test/reporter';
-const getSecret = require('./vault');
+import { getSecret } from './vault';
 
 class JiraReporter implements Reporter {
-    private xrayBaseUrl: string = getSecret('secret/playwright/XRAY_URL');
-    private xrayClientId: string = getSecret('secret/playwright/XRAY_CLIENT_ID');
-    private xrayClientSecret: string = getSecret('secret/playwright/XRAY_CLIENT_SECRET');
-    private authToken: string = '';
+private xrayBaseUrl: string;
+private xrayClientId: string;
+private xrayClientSecret: string;
+private authToken: string = '';
 
-    private testExecutionKey: string = ''; // Xray Test Execution key
-    private tests: any[] = []; // Array to hold test results dynamically
+private testExecutionKey: string = ''; // Xray Test Execution key
+private tests: any[] = []; // Array to hold test results dynamically
 
+    constructor() {
+        // Initialize secrets asynchronously
+        this.initializeSecrets();
+    }
+
+private async initializeSecrets() {
+        try {
+            this.xrayBaseUrl = await getSecret('playwright/XRAY_URL');
+            this.xrayClientId = await getSecret('playwright/XRAY_CLIENT_ID');
+            this.xrayClientSecret = await getSecret('playwright/XRAY_CLIENT_SECRET');
+        } catch (error) {
+            console.error('Error initializing secrets:', error.message);
+            console.log(this.xrayBaseUrl);
+            console.log(this.xrayClientId);
+            console.log(this.xrayClientSecret);
+            throw error;  // Fail early if secrets cannot be initialized
+        }
+    }
 
     async onBegin(config: FullConfig, suite: Suite): Promise<void> {
         console.log('Starting the tests...');

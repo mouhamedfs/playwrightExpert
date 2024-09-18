@@ -1,20 +1,23 @@
-const vault = require('node-vault')();
+import * as dotenv from 'dotenv';
+const vault = require('node-vault');
 
-// Load environment variables from the system (not the .env file)
-const getSecret = async (path) => {
+// Load environment variables from .env file
+dotenv.config();
+
+// Create the Vault client
+const vaultClient = vault({
+    endpoint: process.env.VAULT_ADDR,
+    token: process.env.VAULT_TOKEN,
+});
+
+
+export const getSecret = async (secretPath: string): Promise<string | null> => {
     try {
-        vault.address = process.env.VAULT_ADDR;
-        vault.token = process.env.VAULT_TOKEN;
-
-        if (!vault.address || !vault.token) {
-            throw new Error('VAULT_ADDR or VAULT_TOKEN not found in environment variables');
-        }
-
-        const result = await vault.read("secret/playwright/");
-        return result.data.data.value;  // Retrieve the secret value
-    } catch (err) {
-        console.error(`Error fetching secret: ${err.message}`);
+        const fullPath = `secret/data/${secretPath}`;
+        const result = await vaultClient.read(fullPath);
+        return result.data?.data?.value || null;
+    } catch (error) {
+        console.error(`Error fetching secret at path "${secretPath}": ${error.message}`);
+        return null;
     }
 };
-
-module.exports = getSecret;

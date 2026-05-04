@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../E2ETesting.iml" filepath="$PROJECT_DIR$/../E2ETesting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../playwright-GPT/.idea/playwright-GPT.iml" filepath="$PROJECT_DIR$/../playwright-GPT/.idea/playwright-GPT.iml" />
     </modules>
   </component>
 </project>
